@@ -94,7 +94,6 @@
       100% { transform: translateY(180px); }
     }
 
-    /* Optional: center the hidden audio icon if you ever show controls */
     audio {
       position: fixed;
       bottom: 10px;
@@ -111,9 +110,7 @@
 
   <div id="ui"></div>
 
-  <!-- Background music: put your own mp3 name here -->
-  <!-- 1) upload e.g. 'music.mp3' to this repo -->
-  <!-- 2) make sure the 'src' matches that filename -->
+  <!-- Background music – change filename if needed -->
   <audio id="bgMusic" src="music.mp3" autoplay loop muted></audio>
 
   <script>
@@ -142,7 +139,7 @@
       ui.appendChild(love);
     }
 
-    // Unmute background music after first click (browser policy)
+    // Unmute music on first click (browser policy)
     document.body.addEventListener('click', () => {
       const audio = document.getElementById('bgMusic');
       if (audio.muted) {
