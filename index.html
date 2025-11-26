@@ -177,6 +177,27 @@
       opacity: 0.7;
     }
 
+    /* --- Poem --- */
+    .poem-container {
+      position: fixed;
+      top: 18%;
+      width: 100%;
+      text-align: center;
+      color: #ffd6ea;
+      font-size: 1.2rem;
+      line-height: 1.7rem;
+      text-shadow: 0 0 12px rgba(255, 192, 203, 0.9);
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      white-space: pre-line;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .poem-container.visible {
+      opacity: 1;
+    }
+
     /* --- Animations --- */
     @keyframes horizontal {
       from { transform: translateX(0px); }
@@ -237,6 +258,14 @@
 
   <div id="ui"></div>
 
+  <!-- Poem -->
+  <div class="poem-container" id="poem">
+In this tiny universe of ours,
+every star spells out your name.
+And every time my heart beats,
+it whispers: I love you.
+  </div>
+
   <!-- Bottom message -->
   <div class="love-footer">I love you ♥ Claudia</div>
 
@@ -288,13 +317,24 @@
       ui.appendChild(love);
     }
 
-    // Function to start experience: hide screen + unmute music
+    // Function to start experience: hide screen + unmute music + show poem + fade poem after 15s
     function startExperience() {
       const startScreen = document.getElementById('startScreen');
       const audio = document.getElementById('bgMusic');
+      const poem = document.getElementById('poem');
 
+      // hide start screen
       startScreen.classList.add('hidden');
 
+      // show poem (fade in)
+      poem.classList.add('visible');
+
+      // fade poem away after 15s
+      setTimeout(() => {
+        poem.classList.remove('visible');
+      }, 15000);
+
+      // start / unmute music
       if (audio.muted) {
         audio.muted = false;
         audio.volume = 0.4;
