@@ -7,11 +7,46 @@
   <style>
     /* --- Base page --- */
     body {
-      background: #000;
+      background: radial-gradient(circle at center, #2a002a 0%, #000 80%);
       height: 100vh;
       margin: 0;
       overflow: hidden;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* --- Sparkle Background --- */
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.7);
+      opacity: 0.8;
+      animation: sparkleFloat 8s infinite ease-in-out;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-40px) scale(1.4);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.8);
+      }
     }
 
     /* --- Quick links --- */
@@ -179,11 +214,14 @@
   </style>
 </head>
 <body>
+  <!-- Sparkle background -->
+  <div class="sparkles" id="sparkles"></div>
+
   <!-- Start screen overlay -->
   <div class="start-screen" id="startScreen">
     <div class="start-title">For Claudia</div>
     <div class="start-subtitle">
-      A little universe of “I love you” made just for you.  
+      A little universe just made for you.  
       Click below to step inside. 🌙
     </div>
     <button class="start-btn" id="startBtn">Start</button>
@@ -205,6 +243,25 @@
   <audio id="bgMusic" src="mp3.mp3" autoplay loop muted></audio>
 
   <script>
+    // Create sparkling stars
+    const sparkleContainer = document.getElementById("sparkles");
+    const sparkleCount = 80;
+
+    for (let i = 0; i < sparkleCount; i++) {
+      const s = document.createElement("div");
+      s.className = "sparkle";
+
+      // random position
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
+
+      // random delay + speed
+      s.style.animationDuration = 6 + Math.random() * 6 + "s";
+      s.style.animationDelay = Math.random() * 5 + "s";
+
+      sparkleContainer.appendChild(s);
+    }
+
     // Create N floating "I love you" items
     const N = 100;
     const ui = document.getElementById('ui');
