@@ -35,9 +35,18 @@
     }
 
     @keyframes sparkleFloat {
-      0% { transform: translateY(0) scale(1); opacity: 0.3; }
-      50% { opacity: 1; transform: translateY(-40px) scale(1.4); }
-      100% { opacity: 0; transform: translateY(40px) scale(0.8); }
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-40px) scale(1.4);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.8);
+      }
     }
 
     /* --- Quick links --- */
@@ -57,13 +66,12 @@
       font-size: 13px;
       user-select: none;
     }
-
     .quick-link:nth-of-type(1) { top: 10%; }
-    .quick-link:nth-of-type(2) { top: 4%; }
-    .quick-link:nth-of-type(3) { top: 16%; }
-    .quick-link:nth-of-type(4) { top: 22%; }
+    .quick-link:nth-of-type(2) { top: 4%;  z-index: 9; }
+    .quick-link:nth-of-type(3) { top: 16%; z-index: 8; }
+    .quick-link:nth-of-type(4) { top: 22%; z-index: 7; }
 
-    /* --- Love words animation --- */
+    /* --- Love words --- */
     #ui .love {
       position: absolute;
       top: 50%;
@@ -92,37 +100,33 @@
       animation-delay: calc(var(--i) * -300ms);
     }
 
-    /* --- Bottom message --- */
+    /* --- Bottom message: "I love you ♥ Claudia" --- */
     .love-footer {
       position: fixed;
       bottom: 30px;
+      left: 0;
       width: 100%;
       text-align: center;
       color: #ea80b0;
       font-size: 1.6rem;
       letter-spacing: 2px;
       text-shadow: 0 0 10px #fff;
+      white-space: nowrap;
       animation: footerPulse 2.5s infinite ease-in-out;
       z-index: 2;
     }
 
-    @keyframes footerPulse {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    /* --- Start screen --- */
+    /* --- Starting screen overlay --- */
     .start-screen {
       position: fixed;
       inset: 0;
       background: radial-gradient(circle at top, #ffb6c1 0%, #1a001a 45%, #000 90%);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #ffe6f2;
+      flex-direction: column;
       text-align: center;
+      color: #ffe6f2;
       z-index: 9999;
       transition: opacity 0.9s ease-in-out, visibility 0.9s ease-in-out;
     }
@@ -143,7 +147,7 @@
     .start-subtitle {
       font-size: 1.2rem;
       max-width: 320px;
-      margin-bottom: 30px;
+      margin: 0 auto 30px;
       opacity: 0.9;
     }
 
@@ -153,25 +157,27 @@
       border: none;
       font-size: 1rem;
       letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
       background: linear-gradient(135deg, #ff69b4, #ffa6d1);
       color: #2b001f;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(255,105,180,0.7);
-      transition: 0.2s ease;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .start-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 28px rgba(255,105,180,0.9);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 28px rgba(255, 105, 180, 0.9);
+      filter: brightness(1.08);
     }
 
     .start-note {
       margin-top: 16px;
-      opacity: 0.7;
       font-size: 0.85rem;
+      opacity: 0.7;
     }
 
-    /* --- Poem (TOP-LEFT) --- */
+    /* --- Poem (moved to top-left) --- */
     .poem-container {
       position: fixed;
       top: 30px;
@@ -180,8 +186,8 @@
       text-align: left;
       color: #ffd6ea;
       font-size: 1.2rem;
-      line-height: 1.6rem;
-      text-shadow: 0 0 12px rgba(255,192,203,0.9);
+      line-height: 1.7rem;
+      text-shadow: 0 0 12px rgba(255, 192, 203, 0.9);
       opacity: 0;
       transition: opacity 2s ease-in-out;
       white-space: pre-line;
@@ -193,7 +199,7 @@
       opacity: 1;
     }
 
-    /* Animations for love words */
+    /* --- Animations --- */
     @keyframes horizontal {
       from { transform: translateX(0px); }
       to   { transform: translateX(450px); }
@@ -201,17 +207,40 @@
 
     @keyframes vertical {
       0%   { transform: translateY(180px); }
-      50%  { transform: translateY(-90px); }
+      10%  { transform: translateY(45px); }
+      15%  { transform: translateY(4.5px); }
+      18%  { transform: translateY(0px); }
+      20%  { transform: translateY(4.5px); }
+      22%  { transform: translateY(34.61538px); }
+      24%  { transform: translateY(64.28571px); }
+      25%  { transform: translateY(112.5px); }
+      26%  { transform: translateY(64.28571px); }
+      28%  { transform: translateY(34.61538px); }
+      30%  { transform: translateY(4.5px); }
+      32%  { transform: translateY(0px); }
+      35%  { transform: translateY(4.5px); }
+      40%  { transform: translateY(45px); }
+      50%  { transform: translateY(180px); }
+      71%  { transform: translateY(428.57143px); }
+      72.5%{ transform: translateY(441.17647px); }
+      75%  { transform: translateY(450px); }
+      77.5%{ transform: translateY(441.17647px); }
+      79%  { transform: translateY(428.57143px); }
       100% { transform: translateY(180px); }
+    }
+
+    @keyframes footerPulse {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
-
-  <!-- Sparkles -->
+  <!-- Sparkle background -->
   <div class="sparkles" id="sparkles"></div>
 
-  <!-- Start screen -->
+  <!-- Start screen overlay -->
   <div class="start-screen" id="startScreen">
     <div class="start-title">For Claudia</div>
     <div class="start-subtitle">
@@ -223,12 +252,11 @@
   </div>
 
   <!-- Quick links -->
-  <a href="#" class="quick-link">Create</a>
-  <a href="#" class="quick-link">More</a>
-  <a href="#" class="quick-link">Code</a>
-  <a href="#" class="quick-link">Gift</a>
+  <a href="https://mp.weixin.qq.com/s/oxLqXBcLCT8ij67DjkW2kw" class="quick-link" title="Create">Create</a>
+  <a href="https://shop1619956412.v.weidian.com/?userid=1619956412&spider_token=2720" class="quick-link" title="More">More</a>
+  <a href="https://pan.quark.cn/s/3344d23e48a8" class="quick-link" title="Source Code">Code</a>
+  <a href="https://shop1619956412.v.weidian.com/?userid=1619956412&spider_token=2720" class="quick-link" title="Gift">Gift</a>
 
-  <!-- Love animation -->
   <div id="ui"></div>
 
   <!-- Poem -->
@@ -239,30 +267,35 @@ And every time my heart beats,
 it whispers: I love you.
   </div>
 
-  <!-- Footer -->
+  <!-- Bottom message -->
   <div class="love-footer">I love you ♥ Claudia</div>
 
-  <!-- Music -->
+  <!-- Background music -->
   <audio id="bgMusic" src="mp3.mp3" autoplay loop muted></audio>
 
   <script>
-    /* Sparkles */
+    // Create sparkling stars
     const sparkleContainer = document.getElementById("sparkles");
     const sparkleCount = 80;
 
     for (let i = 0; i < sparkleCount; i++) {
       const s = document.createElement("div");
       s.className = "sparkle";
+
+      // random position
       s.style.left = Math.random() * 100 + "%";
       s.style.top = Math.random() * 100 + "%";
+
+      // random delay + speed
       s.style.animationDuration = 6 + Math.random() * 6 + "s";
       s.style.animationDelay = Math.random() * 5 + "s";
+
       sparkleContainer.appendChild(s);
     }
 
-    /* Floating I love yous */
-    const ui = document.getElementById('ui');
+    // Create N floating "I love you" items
     const N = 100;
+    const ui = document.getElementById('ui');
 
     for (let i = 1; i <= N; i++) {
       const love = document.createElement('div');
@@ -285,34 +318,40 @@ it whispers: I love you.
       ui.appendChild(love);
     }
 
-    /* Start sequence */
+    // Function to start experience: hide screen + unmute music + show poem + fade poem after 15s
     function startExperience() {
       const startScreen = document.getElementById('startScreen');
-      const poem = document.getElementById('poem');
       const audio = document.getElementById('bgMusic');
+      const poem = document.getElementById('poem');
 
-      // fade start screen
+      // hide start screen
       startScreen.classList.add('hidden');
 
-      // fade in poem
+      // show poem (fade in)
       poem.classList.add('visible');
 
-      // fade OUT poem after 15 seconds
+      // fade poem away after 15s
       setTimeout(() => {
         poem.classList.remove('visible');
       }, 15000);
 
-      // unmute music
+      // start / unmute music
       if (audio.muted) {
         audio.muted = false;
         audio.volume = 0.4;
-        audio.play();
+        audio.play().catch(() => {
+          // if play fails, it will still unmute on first body click
+        });
       }
     }
 
-    document.getElementById('startBtn').addEventListener('click', startExperience);
+    // Start button click
+    document.getElementById('startBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      startExperience();
+    });
 
-    // fallback: unmute on click
+    // Fallback: unmute music on first click anywhere
     document.body.addEventListener('click', () => {
       const audio = document.getElementById('bgMusic');
       if (audio.muted) {
