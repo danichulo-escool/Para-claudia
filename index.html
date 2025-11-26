@@ -20,7 +20,7 @@
       right: 10px;
       width: 35px;
       height: 35px;
-      z-index: 999;
+      z-index: 10;
       background: #696969;
       border-radius: 50%;
       padding: 1px;
@@ -31,10 +31,10 @@
       font-size: 13px;
       user-select: none;
     }
-    .quick-link:nth-of-type(1) { top: 10%; }   /* Create */
-    .quick-link:nth-of-type(2) { top: 4%;  z-index: 998; }   /* More */
-    .quick-link:nth-of-type(3) { top: 16%; z-index: 997; }   /* Code */
-    .quick-link:nth-of-type(4) { top: 22%; z-index: 996; }   /* Gift */
+    .quick-link:nth-of-type(1) { top: 10%; }
+    .quick-link:nth-of-type(2) { top: 4%;  z-index: 9; }
+    .quick-link:nth-of-type(3) { top: 16%; z-index: 8; }
+    .quick-link:nth-of-type(4) { top: 22%; z-index: 7; }
 
     /* --- Love words --- */
     #ui .love {
@@ -77,6 +77,68 @@
       text-shadow: 0 0 10px #fff;
       white-space: nowrap;
       animation: footerPulse 2.5s infinite ease-in-out;
+      z-index: 1;
+    }
+
+    /* --- Starting screen overlay --- */
+    .start-screen {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #ffb6c1 0%, #1a001a 45%, #000 90%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      color: #ffe6f2;
+      z-index: 9999;
+      transition: opacity 0.9s ease-in-out, visibility 0.9s ease-in-out;
+    }
+
+    .start-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .start-title {
+      font-size: 2.4rem;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(255, 192, 203, 0.8);
+    }
+
+    .start-subtitle {
+      font-size: 1.2rem;
+      max-width: 320px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+
+    .start-btn {
+      padding: 12px 32px;
+      border-radius: 999px;
+      border: none;
+      font-size: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff69b4, #ffa6d1);
+      color: #2b001f;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.7);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 28px rgba(255, 105, 180, 0.9);
+      filter: brightness(1.08);
+    }
+
+    .start-note {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      opacity: 0.7;
     }
 
     /* --- Animations --- */
@@ -117,6 +179,17 @@
   </style>
 </head>
 <body>
+  <!-- Start screen overlay -->
+  <div class="start-screen" id="startScreen">
+    <div class="start-title">For Claudia</div>
+    <div class="start-subtitle">
+      A little universe of “I love you” made just for you.  
+      Click below to step inside. 🌙
+    </div>
+    <button class="start-btn" id="startBtn">Start</button>
+    <div class="start-note">(Turn up your volume 💖)</div>
+  </div>
+
   <!-- Quick links -->
   <a href="https://mp.weixin.qq.com/s/oxLqXBcLCT8ij67DjkW2kw" class="quick-link" title="Create">Create</a>
   <a href="https://shop1619956412.v.weidian.com/?userid=1619956412&spider_token=2720" class="quick-link" title="More">More</a>
@@ -128,9 +201,8 @@
   <!-- Bottom message -->
   <div class="love-footer">I love you ♥ Claudia</div>
 
-  <!-- Background music – change filename if needed -->
-  <!-- Make sure you have uploaded music.mp3 to this repo, or rename src to your file -->
-<audio id="bgMusic" src="mp3.mp3" autoplay loop muted></audio>
+  <!-- Background music -->
+  <audio id="bgMusic" src="mp3.mp3" autoplay loop muted></audio>
 
   <script>
     // Create N floating "I love you" items
@@ -158,7 +230,29 @@
       ui.appendChild(love);
     }
 
-    // Unmute music on first click (browser policy)
+    // Function to start experience: hide screen + unmute music
+    function startExperience() {
+      const startScreen = document.getElementById('startScreen');
+      const audio = document.getElementById('bgMusic');
+
+      startScreen.classList.add('hidden');
+
+      if (audio.muted) {
+        audio.muted = false;
+        audio.volume = 0.4;
+        audio.play().catch(() => {
+          // if play fails, it will still unmute on first body click
+        });
+      }
+    }
+
+    // Start button click
+    document.getElementById('startBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      startExperience();
+    });
+
+    // Fallback: unmute music on first click anywhere
     document.body.addEventListener('click', () => {
       const audio = document.getElementById('bgMusic');
       if (audio.muted) {
