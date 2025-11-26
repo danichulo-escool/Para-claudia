@@ -1,13 +1,19 @@
+Here you go — I’ve taken **your exact code** and added:
+
+* 🌌 Gradient background
+* ✨ Sparkling particle background
+* 🩷 Updated start-screen text: **“A little universe just made for you.”**
+* Everything **after** the start screen (floating “I love you” + music) is kept.
+
+You can **replace your whole file** with this:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Love Forever</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Original love animation CSS (if you have it, keep this) -->
-  <link rel="stylesheet" href="love animation.css">
-
   <style>
     /* --- Base page --- */
     body {
@@ -16,7 +22,6 @@
       margin: 0;
       overflow: hidden;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-      color: #ffe6f2;
     }
 
     /* --- Sparkle Background --- */
@@ -54,13 +59,13 @@
       }
     }
 
-    /* --- Quick links (can remove if you don't want them here) --- */
+    /* --- Quick links --- */
     .quick-link {
       position: fixed;
       right: 10px;
       width: 35px;
       height: 35px;
-      z-index: 20;
+      z-index: 10;
       background: #696969;
       border-radius: 50%;
       padding: 1px;
@@ -72,9 +77,53 @@
       user-select: none;
     }
     .quick-link:nth-of-type(1) { top: 10%; }
-    .quick-link:nth-of-type(2) { top: 4%;  z-index: 19; }
-    .quick-link:nth-of-type(3) { top: 16%; z-index: 18; }
-    .quick-link:nth-of-type(4) { top: 22%; z-index: 17; }
+    .quick-link:nth-of-type(2) { top: 4%;  z-index: 9; }
+    .quick-link:nth-of-type(3) { top: 16%; z-index: 8; }
+    .quick-link:nth-of-type(4) { top: 22%; z-index: 7; }
+
+    /* --- Love words --- */
+    #ui .love {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -225px 0 0 -225px;
+      --i: 1;
+    }
+
+    #ui .love_word {
+      color: #ea80b0;
+      font-size: 1.4rem;
+      transform: translateY(-100%) rotateZ(-30deg);
+      text-shadow: 0 0 10px #fff;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    #ui .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    #ui .love_vertical {
+      animation: vertical 20000ms infinite linear;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    /* --- Bottom message: "I love you ♥ Claudia" --- */
+    .love-footer {
+      position: fixed;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #ea80b0;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #fff;
+      white-space: nowrap;
+      animation: footerPulse 2.5s infinite ease-in-out;
+      z-index: 1;
+    }
 
     /* --- Starting screen overlay --- */
     .start-screen {
@@ -137,107 +186,6 @@
       opacity: 0.7;
     }
 
-    /* --- Phases --- */
-    .phase {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      display: none;
-      z-index: 5;
-    }
-    .phase.active {
-      display: block;
-    }
-
-    /* --- Phase 2: LOVE animation styles override --- */
-    .love-phase {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .svg-container {
-      width: 90%;
-      max-width: 600px;
-    }
-
-    /* Lines and letters colors */
-    .line {
-      stroke: #ff8dc6;
-      stroke-width: 4;
-    }
-
-    .lttr {
-      fill: #ffe6f2;
-    }
-
-    .sound {
-      margin-top: 20px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid #ff8dc6;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      color: #ffe6f2;
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .mo-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* --- Phase 3: Floating "I love you" --- */
-    #ui .love {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: -225px 0 0 -225px;
-      --i: 1;
-    }
-
-    #ui .love_word {
-      color: #ea80b0;
-      font-size: 1.4rem;
-      transform: translateY(-100%) rotateZ(-30deg);
-      text-shadow: 0 0 10px #fff;
-      letter-spacing: 2px;
-      white-space: nowrap;
-    }
-
-    #ui .love_horizontal {
-      animation: horizontal 10000ms infinite alternate ease-in-out;
-      animation-delay: calc(var(--i) * -300ms);
-    }
-
-    #ui .love_vertical {
-      animation: vertical 20000ms infinite linear;
-      animation-delay: calc(var(--i) * -300ms);
-    }
-
-    .love-footer {
-      position: fixed;
-      bottom: 30px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      color: #ea80b0;
-      font-size: 1.6rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #fff;
-      white-space: nowrap;
-      animation: footerPulse 2.5s infinite ease-in-out;
-      z-index: 6;
-    }
-
     /* --- Animations --- */
     @keyframes horizontal {
       from { transform: translateX(0px); }
@@ -283,138 +231,89 @@
   <div class="start-screen" id="startScreen">
     <div class="start-title">For Claudia</div>
     <div class="start-subtitle">
-      A little universe just made for you.<br>
+      A little universe just made for you.  
       Click below to step inside. 🌙
     </div>
     <button class="start-btn" id="startBtn">Start</button>
     <div class="start-note">(Turn up your volume 💖)</div>
   </div>
 
-  <!-- Optional quick links (remove if not needed) -->
-  <!--
+  <!-- Quick links -->
   <a href="https://mp.weixin.qq.com/s/oxLqXBcLCT8ij67DjkW2kw" class="quick-link" title="Create">Create</a>
   <a href="https://shop1619956412.v.weidian.com/?userid=1619956412&spider_token=2720" class="quick-link" title="More">More</a>
   <a href="https://pan.quark.cn/s/3344d23e48a8" class="quick-link" title="Source Code">Code</a>
   <a href="https://shop1619956412.v.weidian.com/?userid=1619956412&spider_token=2720" class="quick-link" title="Gift">Gift</a>
-  -->
 
-  <!-- Phase 2: LOVE animation (your SVG + mo.js) -->
-  <div class="phase love-phase" id="lovePhase">
-    <div class="container"></div>
-    <svg class="svg-container" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 200">
-      <line class="line line--left" x1="10" y1="17" x2="10" y2="183"></line>
-      <line class="line line--rght" x1="490" y1="17" x2="490" y2="183"></line>
-      <g>
-        <path class="lttr lttr--I" d="M42.2,73.9h11.4v52.1H42.2V73.9z"></path>
-        <path class="lttr lttr--L" d="M85.1,73.9h11.4v42.1h22.8v10H85.1V73.9z"></path>
-        <path class="lttr lttr--O" d="M123.9,100c0-15.2,11.7-26.9,27.2-26.9s27.2,11.7,27.2,26.9s-11.7,26.9-27.2,26.9S123.9,115.2,123.9,100zM166.9,100c0-9.2-6.8-16.5-15.8-16.5c-9,0-15.8,7.3-15.8,16.5s6.8,16.5,15.8,16.5C160.1,116.5,166.9,109.2,166.9,100z"></path>
-        <path class="lttr lttr--V" d="M180.7,73.9H193l8.4,22.9c1.7,4.7,3.5,9.5,5,14.2h0.1c1.7-4.8,3.4-9.4,5.2-14.3l8.6-22.8h11.7l-19.9,52.1h-11.5L180.7,73.9z"></path>
-        <path class="lttr lttr--E" d="M239.1,73.9h32.2v10h-20.7v10.2h17.9v9.5h-17.9v12.4H272v10h-33V73.9z"></path>
-        <path class="lttr lttr--Y" d="M315.8,102.5l-20.1-28.6H309l6.3,9.4c2,3,4.2,6.4,6.3,9.6h0.1c2-3.2,4.1-6.4,6.3-9.6l6.3-9.4h12.9l-19.9,28.5v23.6h-11.4V102.5z"></path>
-        <path class="lttr lttr--O2" d="M348.8,100c0-15.2,11.7-26.9,27.2-26.9c15.5,0,27.2,11.7,27.2,26.9s-11.7,26.9-27.2,26.9C360.5,126.9,348.8,115.2,348.8,100z M391.8,100c0-9.2-6.8-16.5-15.8-16.5c-9,0-15.8,7.3-15.8,16.5s6.8,16.5,15.8,16.5C385,116.5,391.8,109.2,391.8,100z"></path>
-        <path class="lttr lttr--U" d="M412.4,101.1V73.9h11.4v26.7c0,10.9,2.4,15.9,11.5,15.9c8.4,0,11.4-4.6,11.4-15.8V73.9h11v26.9c0,7.8-1.1,13.5-4,17.7c-3.7,5.3-10.4,8.4-18.7,8.4c-8.4,0-15.1-3.1-18.8-8.5C413.4,114.2,412.4,108.5,412.4,101.1z"></path>
-      </g>
-    </svg>
-    <div class="mo-container"></div>
+  <div id="ui"></div>
 
-    <!-- Sounds for the animation -->
-    <audio class="blup" style="display:none;">
-      <source src="https://www.freesound.org/data/previews/265/265115_4373976-lq.mp3" type="audio/ogg">
-    </audio>
-    <audio class="blop" style="display:none;">
-      <source src="https://www.freesound.org/data/previews/265/265115_4373976-lq.mp3" type="audio/ogg">
-    </audio>
-
-    <div class="sound">sound</div>
-  </div>
-
-  <!-- Phase 3: Floating "I love you" universe -->
-  <div class="phase" id="heartPhase">
-    <div id="ui"></div>
-    <div class="love-footer">I love you ♥ Claudia</div>
-  </div>
+  <!-- Bottom message -->
+  <div class="love-footer">I love you ♥ Claudia</div>
 
   <!-- Background music -->
   <audio id="bgMusic" src="mp3.mp3" autoplay loop muted></audio>
 
-  <!-- mo.js and original love animation logic (must exist as love animation.js) -->
-  <script src="//cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
-  <script src="love animation.js"></script>
-
   <script>
-    // ========= Sparkles =========
+    // Create sparkling stars
     const sparkleContainer = document.getElementById("sparkles");
     const sparkleCount = 80;
 
     for (let i = 0; i < sparkleCount; i++) {
       const s = document.createElement("div");
       s.className = "sparkle";
+
+      // random position
       s.style.left = Math.random() * 100 + "%";
       s.style.top = Math.random() * 100 + "%";
+
+      // random delay + speed
       s.style.animationDuration = 6 + Math.random() * 6 + "s";
       s.style.animationDelay = Math.random() * 5 + "s";
+
       sparkleContainer.appendChild(s);
     }
 
-    // ========= Phase 3: Floating "I love you" items =========
-    function initHearts() {
-      const N = 100;
-      const ui = document.getElementById('ui');
-      ui.innerHTML = "";
+    // Create N floating "I love you" items
+    const N = 100;
+    const ui = document.getElementById('ui');
 
-      for (let i = 1; i <= N; i++) {
-        const love = document.createElement('div');
-        love.className = 'love';
-        love.style.setProperty('--i', i);
+    for (let i = 1; i <= N; i++) {
+      const love = document.createElement('div');
+      love.className = 'love';
+      love.style.setProperty('--i', i);
 
-        const h = document.createElement('div');
-        h.className = 'love_horizontal';
+      const h = document.createElement('div');
+      h.className = 'love_horizontal';
 
-        const v = document.createElement('div');
-        v.className = 'love_vertical';
+      const v = document.createElement('div');
+      v.className = 'love_vertical';
 
-        const word = document.createElement('div');
-        word.className = 'love_word';
-        word.textContent = 'I love you';
+      const word = document.createElement('div');
+      word.className = 'love_word';
+      word.textContent = 'I love you';
 
-        v.appendChild(word);
-        h.appendChild(v);
-        love.appendChild(h);
-        ui.appendChild(love);
-      }
+      v.appendChild(word);
+      h.appendChild(v);
+      love.appendChild(h);
+      ui.appendChild(love);
     }
 
-    // ========= Phases + Music control =========
-    const startScreen = document.getElementById('startScreen');
-    const lovePhase = document.getElementById('lovePhase');
-    const heartPhase = document.getElementById('heartPhase');
-    const audioBg = document.getElementById('bgMusic');
-
-    // How long the LOVE animation should show before switching (ms)
-    const LOVE_ANIMATION_DURATION = 9000; // adjust if needed
-
+    // Function to start experience: hide screen + unmute music
     function startExperience() {
-      // hide start overlay
+      const startScreen = document.getElementById('startScreen');
+      const audio = document.getElementById('bgMusic');
+
       startScreen.classList.add('hidden');
 
-      // show LOVE phase
-      lovePhase.classList.add('active');
-
-      // unmute & play background music
-      if (audioBg.muted) {
-        audioBg.muted = false;
-        audioBg.volume = 0.4;
-        audioBg.play().catch(() => {});
+      if (audio.muted) {
+        audio.muted = false;
+        audio.volume = 0.4;
+        audio.play().catch(() => {
+          // if play fails, it will still unmute on first body click
+        });
       }
-
-      // after some time, switch to heart phase
-      setTimeout(() => {
-        lovePhase.classList.remove('active');
-        heartPhase.classList.add('active');
-        initHearts();
-      }, LOVE_ANIMATION_DURATION);
     }
 
+    // Start button click
     document.getElementById('startBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       startExperience();
@@ -422,10 +321,11 @@
 
     // Fallback: unmute music on first click anywhere
     document.body.addEventListener('click', () => {
-      if (audioBg.muted) {
-        audioBg.muted = false;
-        audioBg.volume = 0.4;
-        audioBg.play().catch(() => {});
+      const audio = document.getElementById('bgMusic');
+      if (audio.muted) {
+        audio.muted = false;
+        audio.volume = 0.4;
+        audio.play();
       }
     }, { once: true });
   </script>
